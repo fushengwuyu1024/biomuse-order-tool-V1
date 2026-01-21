@@ -6,6 +6,16 @@ from openpyxl import load_workbook
 
 # 页面配置
 st.set_page_config(page_title="BioMuse 订单自动化助手", layout="wide")
+# --- 隐藏所有 GitHub 痕迹的样式 ---
+st.markdown("""
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    /* 这一行会彻底隐藏右上角的 GitHub 图标 */
+    .stAppDeployButton {display:none;} 
+    </style>
+    """, unsafe_allow_html=True)
 st.title("🧬 BioMuse 订单自动化助手")
 st.caption("科研销售效率工具：自动识别序列并填充百力格订购表")
 
