@@ -7,15 +7,48 @@ from openpyxl import load_workbook
 # 页面配置
 st.set_page_config(page_title="BioMuse 订单助手", layout="wide")
 
-# --- 隐藏 GitHub 图标和多余菜单 (隐身模式) ---
+import streamlit as st
+import pandas as pd
+from io import BytesIO
+import re
+from openpyxl import load_workbook
+
+# 1. 基础配置
+st.set_page_config(page_title="BioMuse 订单助手", layout="wide")
+
+# 2. 【核心隐藏代码】粘贴在 set_page_config 之后
 st.markdown("""
     <style>
+    /* 隐藏右上角三个点菜单 */
     #MainMenu {visibility: hidden;}
+    /* 隐藏底部 "Made with Streamlit" 水印 */
     footer {visibility: hidden;}
+    /* 隐藏顶部装饰条 */
     header {visibility: hidden;}
+    /* 核心：隐藏右上角的 GitHub 部署按钮 */
     .stAppDeployButton {display:none;}
+    /* 隐藏“View Source”按钮（针对不同版本的适配） */
+    .st-emotion-cache-12fmjuu {display: none;} 
     </style>
     """, unsafe_allow_html=True)
+
+# 3. 授权验证（防止外人乱用）
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    st.title("🔐 BioMuse 访问授权")
+    # 为了保护你的隐私，只有输入口令的人才能进入系统
+    pwd = st.text_input("请输入专属授权码", type="password")
+    if st.button("进入系统", use_container_width=True):
+        if pwd == "BioMuse2026": # 这里可以设置你自己的口令
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("授权码不正确，请联系管理员")
+    st.stop()
+
+# --- 后续业务逻辑代码（如 st.title("🧬 BioMuse 自动化订单助手") 等）保持不变 ---
 
 # --- 核心算法 ---
 def get_rna_antisense(sense_seq):
