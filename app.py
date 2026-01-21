@@ -1,3 +1,4 @@
+st.set_page_config(page_title="BioMuse 订单助手", layout="wide", initial_sidebar_state="expanded")
 import streamlit as st
 import pandas as pd
 from io import BytesIO
