@@ -43,12 +43,15 @@ def process_rna(sense_seq):
 
 # --- 界面交互 ---
 
-with st.sidebar:
-    st.header("1. 设置基本信息")
-    client_name = st.text_input("客户姓名", "张三")
-    client_unit = st.text_input("客户单位", "华东理工大学")
-    client_group = st.text_input("课题组", "李老师课题组")
-    order_type = st.radio("订单类型", ["DNA引物", "RNA/siRNA"])
+st.header("1. 客户基本信息")
+# 创建两列，让输入框并排，节省手机空间
+col1, col2 = st.columns(2)
+with col1:
+    c_name = st.text_input("客户姓名", "待填写")
+with col2:
+    c_unit = st.text_input("客户单位", "待填写")
+c_group = st.text_input("课题组", "待填写")
+order_type = st.radio("选择订单模式", ["DNA引物", "siRNA/RNA"], horizontal=True)
 
 st.header("2. 粘贴客户需求")
 raw_text = st.text_area("直接粘贴客户发来的文字（包含名称、序列、OD等）：", height=200, 
