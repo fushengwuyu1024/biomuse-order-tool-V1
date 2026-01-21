@@ -35,16 +35,16 @@ with col1:
     c_name = st.text_input("客户姓名", placeholder="例如：张三")
 with col2:
     c_unit = st.text_input("客户单位", placeholder="例如：华东理工")
-c_group = st.text_input("课题组", placeholder="例如：李老师组")
+c_group = st.text_input("课题组", placeholder="例如：李老师")
 
-order_type = st.radio("选择模式", ["DNA引物", "siRNA/RNA"], horizontal=True)
+order_type = st.radio("订单类型", ["DNA引物", "siRNA/RNA"], horizontal=True)
 
 # 2. 需求粘贴区
 st.subheader("2. 粘贴需求文字")
-raw_input = st.text_area("请粘贴微信内容", height=150)
+raw_input = st.text_area("直接粘贴需求文字(可包含名称、序列、OD等)", height=150)
 
 # 3. 执行按钮
-if st.button("🚀 开始转换", use_container_width=True): # 按钮宽度自适应手机
+if st.button("🚀 开始解析并生成表格", use_container_width=True): # 按钮宽度自适应手机
     data_list = []
     
     if order_type == "DNA引物":
@@ -88,9 +88,11 @@ if st.button("🚀 开始转换", use_container_width=True): # 按钮宽度自�
             st.download_button(
                 label="💾 下载百力格订单 Excel",
                 data=output.getvalue(),
-                file_name=f"订单_{c_name}.xlsx",
+                file_name=f"百力格订购表_{c_name}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 use_container_width=True
             )
         except Exception as e:
-            st.error(f"填充出错: {e}")
+            st.error(f"填充失败}")
+    else:
+        st.warning("未识别到有效序列，请检查输入内容格式。")
