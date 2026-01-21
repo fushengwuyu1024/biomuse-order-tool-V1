@@ -77,7 +77,7 @@ st.subheader("2. 粘贴需求文字")
 raw_input = st.text_area("直接粘贴需求文字(可包含名称、序列、OD等)", height=150)
 
 # 3. 执行按钮
-if st.button("🚀 开始解析并生成表格", use_container_width=True): # 按钮宽度自适应手机
+if st.button("🚀 开始解析并生成订购表格", use_container_width=True): # 按钮宽度自适应手机
     data_list = []
     
     if order_type == "DNA引物":
