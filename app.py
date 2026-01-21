@@ -93,6 +93,6 @@ if st.button("🚀 开始解析并生成表格", use_container_width=True): # �
                 use_container_width=True
             )
         except Exception as e:
-            st.error(f"填充失败}")
+            st.error(f"填充出错: {e}")
     else:
         st.warning("未识别到有效序列，请检查输入内容格式。")
